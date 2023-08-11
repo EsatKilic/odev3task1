@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayı Listesi</title>
+    <style>
+        .random-number {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <button id="siralaButton">Sırala</button>
+    <button id="rastgeleButton" disabled>Rastgele Sayı Seç</button>
+    <div id="sayiListesi"></div>
+
+    <script>
+        const siralaButton = document.getElementById("siralaButton");
+        const rastgeleButton = document.getElementById("rastgeleButton");
+        const sayiListesi = document.getElementById("sayiListesi");
+
+        rastgeleButton.addEventListener("click", () => {
+            const randomNumber = Math.floor(Math.random() * 99) + 1;
+            const span = sayiListesi.querySelector(`span[data-number="${randomNumber}"]`);
+            if (span) {
+                span.classList.add("random-number");
+            }
+        });
+
+        siralaButton.addEventListener("click", () => {
+            siralaButton.disabled = true;
+            rastgeleButton.disabled = false;
+
+            sayiListesi.innerHTML = "";
+
+            for (let i = 1; i <= 99; i++) {
+                const span = document.createElement("span");
+                span.textContent = i;
+                span.setAttribute("data-number", i);
+                sayiListesi.appendChild(span);
+
+                if (i % 10 === 0) {
+                    sayiListesi.appendChild(document.createElement("br"));
+                } else {
+                    sayiListesi.appendChild(document.createTextNode("\u00A0")); 
+                }
+            }
+        });
+    </script>
+</body>
+</html>
